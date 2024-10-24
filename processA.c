@@ -8,7 +8,11 @@ int main(void){
     char text[16] = {0};
     int numbWrite;
     int numFlock;
+
+    
     sprintf(text,"hello world\n");
+    //tao ra file text.txt 
+
     fd = open("text.txt", O_RDWR|O_CREAT, 0777);
     if(fd == -1){
         printf("create file failed\n");
@@ -17,7 +21,7 @@ int main(void){
         printf("Create file successful\n");
     }
 
-
+    //ghi du lieu vao file text.txt
     numbWrite = write(fd, text, sizeof(text)-1);
     if(numbWrite ==-1){
         printf("Write failed\n");
