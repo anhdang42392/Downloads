@@ -51,7 +51,7 @@ numFnctl = fcntl(fd, F_SETLK, &fl);
     } else { 
         printf("set write lock byte 6-11\n"); 
         lseek(fd, 6, SEEK_SET);
-
+// ghi du lieu vao mang text 
             numWrite = write(fd, text, sizeof(text)-1);
         if(numWrite == -1) { 
             printf("can not write file \n"); 
