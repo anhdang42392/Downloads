@@ -35,9 +35,9 @@ static void *thr_handle2(void *args) // ham cho thread ID so 2
 
 static void *thr_handle3(void *args) // ham cho thread ID so 3
 {
-    //pthread_detach(pthread_self());
+    pthread_detach(pthread_self());
     //sleep(2);
-     pthread_exit(NULL);
+    //  pthread_exit(NULL);
 }
 
 int main(int argc, char const *argv[])
@@ -72,7 +72,7 @@ int main(int argc, char const *argv[])
             break;
         }
         counter++;
-        pthread_join(thread_id3, NULL);
+        // pthread_join(thread_id3, NULL);
 
         if (counter%1000 == 0) {
             printf("Thread created: %d\n", counter);
