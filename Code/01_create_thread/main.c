@@ -46,7 +46,7 @@ int main(int argc, char const *argv[])
         return -1;
     }
 
-    sleep(2);
+    //sleep(2);
 
     //Thread 2
     if (ret = pthread_create(&thread_id2, NULL, &thr_handle, &data)) { // cung tuong tu tao mot thread khac voi thread ID khac
