@@ -24,8 +24,8 @@ static void *thr_handle1(void *args)  // ham cho thread ID so 1
 static void *thr_handle2(void *args) // ham cho thread ID so 2
 {
     sleep(5);
-    //pthread_exit(NULL); // exit khoi thread ID
-    exit(1); // khi goi exit o bat ky ham nao ke ca main thread(ham main) thi tat ca thread con lai se ket thuc
+    pthread_exit(NULL); // exit khoi thread ID
+    //exit(1); // khi goi exit o bat ky ham nao ke ca main thread(ham main) thi tat ca thread con lai se ket thuc
     while (1) {
         printf("thread2 handler\n"); 
         sleep(1);
@@ -72,7 +72,7 @@ int main(int argc, char const *argv[])
             break;
         }
         counter++;
-        // pthread_join(thread_id3, NULL);
+        pthread_join(thread_id3, NULL);
 
         if (counter%1000 == 0) {
             printf("Thread created: %d\n", counter);
