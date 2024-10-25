@@ -1,4 +1,5 @@
 helloworld 
-parent PID7159
-
-child PI8759
+Counter in process child: 3
+child PID: 27775
+Counter in process parent: 3
+parent PID: 27552

@@ -21,7 +21,7 @@ int main(void){
         write(STDOUT_FILENO,buf2,numb_read);
     }
     printf("Write %d bytes to hello.txt\n", numb_write);
-    printf("Read %d bytes from hello.txt\n",strlen(buf2));
+    printf("Read %ld bytes from hello.txt\n",strlen(buf2));
     printf("String in buf2: %.*s\n",(int)sizeof(buf2),buf2);    
     printf("Value of file descriptor: %d\n",fd);
     lseek(fd,2,SEEK_SET);
