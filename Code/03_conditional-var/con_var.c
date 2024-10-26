@@ -22,6 +22,8 @@ static void *handle_th1(void *args)
     pthread_mutex_lock(&lock); //khoa mutex thread dang thuc hien
     printf("Hello %s !\n", thr->name);
 
+    
+
     while (counter < THRESHOLD) {
         counter += 1;
         printf("Counter = %d\n", counter);
