@@ -11,6 +11,8 @@ int main(void){
     int numFlock2;
     ssize_t numbRead;
 
+
+// mo file text.txt
     fd = open("text.txt", O_RDWR);
     if(fd == -1){
         printf("create file failed\n");
@@ -19,6 +21,7 @@ int main(void){
         printf("Create file successful\n");
     }
 
+// set lock cho processB
     numFlock1 = flock(fd,LOCK_EX|LOCK_NB);
     if(numFlock1 == -1){
         printf("get write lock failed\n");
