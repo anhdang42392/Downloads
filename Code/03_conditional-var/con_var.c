@@ -7,7 +7,7 @@
 #define THRESHOLD   5
 
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
-pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
+pthread_cond_t cond = PTHREAD_COND_INITIALIZER; // bien dieu kien de bao cho thread khac biet doi den khi thread nay ket thuc
 int counter; // critical section <=> global resource
 
 typedef struct {
@@ -19,7 +19,7 @@ static void *handle_th1(void *args)
 {
     thread_args_t *thr = (thread_args_t *)args;
 
-    pthread_mutex_lock(&lock);
+    pthread_mutex_lock(&lock); //khoa mutex thread dang thuc hien
     printf("Hello %s !\n", thr->name);
 
     while (counter < THRESHOLD) {
@@ -28,9 +28,9 @@ static void *handle_th1(void *args)
         sleep(1);
     }
 
-    pthread_cond_signal(&cond);
+    pthread_cond_signal(&cond); // gui tin hieu cho thread khac biet duoc qua trinh ket thuc
     printf("thread1 handler, counter = %d\n", counter);
-    pthread_mutex_unlock(&lock);
+    pthread_mutex_unlock(&lock); // mo khoa mutex thread de thread khac su dung khoa mutex nay
 
     pthread_exit(NULL); // exit or return;
 
@@ -43,7 +43,7 @@ int main(int argc, char const *argv[])
     thread_args_t thr;
     pthread_t thread_id1, thread_id2;
 
-    memset(&thr, 0x0, sizeof(thread_args_t));
+    memset(&thr, 0x0, sizeof(thread_args_t)); // khoi tao gia tri ban dau cho bien struct thr
     strncpy(thr.name, "thonv12", sizeof(thr.name));
 
     if (ret = pthread_create(&thread_id1, NULL, &handle_th1, &thr)) {
@@ -53,6 +53,8 @@ int main(int argc, char const *argv[])
 
     pthread_mutex_lock(&lock);
     while (1) {
+        printf("waiting \n");
+        sleep(5);
         // ready in advance when pthread_cond_signal() is called
         pthread_cond_wait(&cond, &lock);
         if(counter == THRESHOLD) {
