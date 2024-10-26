@@ -35,7 +35,7 @@ static void *thr_handle2(void *args) // ham cho thread ID so 2
 
 static void *thr_handle3(void *args) // ham cho thread ID so 3
 {
-    pthread_detach(pthread_self());
+    pthread_detach(pthread_self()); // co the ket thuc thread nhug ko can gia tri tra ve va co the tao thread lien tuc nhanh hon
     //sleep(2);
     //  pthread_exit(NULL);
 }
