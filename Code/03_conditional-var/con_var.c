@@ -56,7 +56,7 @@ int main(int argc, char const *argv[])
     pthread_mutex_lock(&lock);
     while (1) {
         printf("waiting \n");
-        sleep(5);
+        // sleep(5);
         // ready in advance when pthread_cond_signal() is called
         pthread_cond_wait(&cond, &lock);
         if(counter == THRESHOLD) {

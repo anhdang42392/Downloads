@@ -4,9 +4,9 @@
 #include <unistd.h>
 #include <pthread.h>
 
-#define THRESHOLD   10
+#define THRESHOLD   5
 
-pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER; // cai dat khoa mutex cho thread
+pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 int counter; // critical section <=> global resource
 
 typedef struct {
@@ -14,10 +14,10 @@ typedef struct {
     char msg[30];
 } thread_args_t;
 
-static void *handle_th1(void *args)  // ham cho thread so 1
+static void *handle_th1(void *args) 
 {
     thread_args_t *thr = (thread_args_t *)args;
-    //khoa mutex thread 
+
     pthread_mutex_lock(&lock);
     printf("hello %s !\n", thr->name);
 
@@ -29,7 +29,7 @@ static void *handle_th1(void *args)  // ham cho thread so 1
 
     printf("thread1 handler, counter = %d\n", counter);
     pthread_mutex_unlock(&lock);
-// mo khoa mutex thread
+
     pthread_exit(NULL); // exit
 
 }
@@ -49,10 +49,6 @@ int main(int argc, char const *argv[])
         return -1;
     }
 
-    printf("Checking: \n");
-    // su dung phuong phap pooling de kiem tra counter bang threshold chua
-
-    // pthread_mutex_lock(&lock);
     while (1) {
         if(counter == THRESHOLD) {
            printf("Global variable counter = %d.\n", counter);
@@ -60,7 +56,6 @@ int main(int argc, char const *argv[])
         }
     }
     
-    // pthread_mutex_unlock(&lock);
     // used to block for the end of a thread and release
     pthread_join(thread_id1,NULL);  
 

@@ -4,9 +4,10 @@
 #include <unistd.h>
 #include <pthread.h>
 
-#define THRESHOLD   10
+#define THRESHOLD   5
 
-pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER; // cai dat khoa mutex cho thread
+pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 int counter; // critical section <=> global resource
 
 typedef struct {
@@ -14,23 +15,24 @@ typedef struct {
     char msg[30];
 } thread_args_t;
 
-static void *handle_th1(void *args)  // ham cho thread so 1
+static void *handle_th1(void *args) 
 {
     thread_args_t *thr = (thread_args_t *)args;
-    //khoa mutex thread 
+
     pthread_mutex_lock(&lock);
-    printf("hello %s !\n", thr->name);
+    printf("Hello %s !\n", thr->name);
 
     while (counter < THRESHOLD) {
         counter += 1;
-	    printf("Counter: %d\n", counter);
+        printf("Counter = %d\n", counter);
         sleep(1);
     }
 
+    pthread_cond_signal(&cond);
     printf("thread1 handler, counter = %d\n", counter);
     pthread_mutex_unlock(&lock);
-// mo khoa mutex thread
-    pthread_exit(NULL); // exit
+
+    pthread_exit(NULL); // exit or return;
 
 }
 
@@ -49,20 +51,19 @@ int main(int argc, char const *argv[])
         return -1;
     }
 
-    printf("Checking: \n");
-    // su dung phuong phap pooling de kiem tra counter bang threshold chua
-
-    // pthread_mutex_lock(&lock);
+    pthread_mutex_lock(&lock);
     while (1) {
+        // ready in advance when pthread_cond_signal() is called
+        pthread_cond_wait(&cond, &lock);
         if(counter == THRESHOLD) {
            printf("Global variable counter = %d.\n", counter);
            break;
         }
     }
+    pthread_mutex_unlock(&lock);
     
-    // pthread_mutex_unlock(&lock);
     // used to block for the end of a thread and release
-    pthread_join(thread_id1,NULL);  
+    pthread_join(thread_id1,NULL); 
 
     return 0;
 }

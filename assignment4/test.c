@@ -1,70 +1,86 @@
-#include <stdio.h>
+
 #include <pthread.h>
-#include <string.h>
 
-#define MAX_NAME 50
+#include <stdio.h>
 
-typedef struct {
-    char name[MAX_NAME];
-    char birthdate[11]; // dd/mm/yyyy
-    char hometown[MAX_NAME];
-} Student;
+#include <unistd.h>
 
+// Declaration of thread condition variable
 
-pthread_mutex_t mutex;
-pthread_cond_t cond;
-FILE *fp;
-Student student;
+pthread_cond_t cond1 = PTHREAD_COND_INITIALIZER;
 
+// declaring mutex
 
-void *input_data(void *arg) {
-    while (1) {
-        pthread_mutex_lock(&mutex);
-        printf("Nhap thong tin sinh vien:\n");
-        scanf("%s %s %s", student.name, student.birthdate, student.hometown);
-        pthread_cond_signal(&cond);
-        pthread_mutex_unlock(&mutex);
+pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+
+int done = 1;
+
+// Thread function
+
+void *foo()
+
+{
+
+    // acquire a lock
+
+    pthread_mutex_lock(&lock);
+
+    if (done == 1)
+    {
+
+        // let's wait on condition variable cond1
+
+        done = 2;
+
+        printf("Waiting on condition variable cond1\n");
+
+        pthread_cond_wait(&cond1, &lock);
     }
+
+    else
+    {
+
+        // Let's signal condition variable cond1
+
+        printf("Signaling condition variable cond1\n");
+
+        pthread_cond_signal(&cond1);
+    }
+
+    // release lock
+
+    pthread_mutex_unlock(&lock);
+
+    printf("Returning thread\n");
+
+    return NULL;
 }
 
-void *write_file(void *arg) {
-    while (1) {
-        pthread_mutex_lock(&mutex);
-        pthread_cond_wait(&cond, &mutex);
-        fprintf(fp, "%s %s %s\n", student.name, student.birthdate, student.hometown);
-        pthread_mutex_unlock(&mutex);
-    }
-}
+// Driver code
 
-void *read_file(void *arg) {
-    while (1) {
-        pthread_mutex_lock(&mutex);
-        pthread_cond_wait(&cond, &mutex);
-        printf("Thong tin sinh vien vua ghi:\n");
-        printf("%s %s %s\n", student.name, student.birthdate, student.hometown);
-        pthread_mutex_unlock(&mutex);
-    }
-}
+int main()
 
+{
 
-int main() {
-    pthread_t tid1, tid2, tid3;
-    fp = fopen("thongtinsinhvien.txt", "w");
+    pthread_t tid1, tid2;
 
-    pthread_mutex_init(&mutex, NULL);
-    pthread_cond_init(&cond, NULL);
+    // Create thread 1
 
-    pthread_create(&tid1, NULL, input_data, NULL);
-    pthread_create(&tid2, NULL, write_file, NULL);
-    pthread_create(&tid3, NULL, read_file, NULL);
+    pthread_create(&tid1, NULL, foo, NULL);
 
-    pthread_join(tid1, NULL);
+    // sleep for 1 sec so that thread 1
+
+    // would get a chance to run first
+
+    sleep(1);
+
+    // Create thread 2
+
+    pthread_create(&tid2, NULL, foo, NULL);
+
+    // wait for the completion of thread 2
+
     pthread_join(tid2, NULL);
-    pthread_join(tid3, NULL);
-
-    fclose(fp);
-    pthread_mutex_destroy(&mutex);
-    pthread_cond_destroy(&cond);
 
     return 0;
 }
