@@ -53,9 +53,9 @@ static void *handle_th1(void *args)
 
         sleep(1);
     }
-
+    // pthread_cond_wait(&cond3, &lock);
     // sprintf(data,"%s  %s  %s \n", thr->name, thr->birthday, thr->quequan);
-    // pthread_cond_signal(&cond); // gui tin hieu cho thread khac biet duoc qua trinh ket thuc
+    pthread_cond_signal(&cond); // gui tin hieu cho thread khac biet duoc qua trinh ket thuc
 
     pthread_mutex_unlock(&lock); // mo khoa mutex thread de thread khac su dung khoa mutex nay
 
@@ -70,15 +70,16 @@ static void *handle_th2(void *args) // ham cho thread ID so 2
 
     // ready in advance when pthread_cond_signal() is called
     // pthread_cond_wait(&cond, &lock);
-
+while(1){
+    pthread_cond_wait(&cond, &lock);
     write(fd, thr->name, strlen(thr->name));
     write(fd, "\t\t", strlen("\t\t"));
     write(fd, thr->birthday, strlen(thr->birthday));
     write(fd, "\t\t", strlen("\t\t"));
     write(fd, thr->quequan, strlen(thr->quequan));
     write(fd, "\n\n", strlen("\n\n"));
-
-    pthread_cond_signal(&cond);
+}
+    // pthread_cond_signal(&cond);
 
     pthread_mutex_unlock(&lock); //  thread so 2 tra lai mutex lock
 
@@ -93,12 +94,12 @@ static void *handle_th3(void *args) // ham cho thread ID so 2
     while (1)
     {
         // ready in advance when pthread_cond_signal() is called
-        pthread_cond_wait(&cond, &lock);
+        // pthread_cond_wait(&cond, &lock);
         printf("%s\t\t", thr->name);
         printf("%s\t\t", thr->birthday);
         printf("%s\n", thr->quequan);
     }
-    pthread_cond_signal(&cond3);
+    pthread_cond_signal(&cond);
     pthread_mutex_unlock(&lock);
     //  thread so 2 tra lai mutex lock
 
@@ -139,6 +140,23 @@ int main(int argc, char const *argv[])
         printf("pthread_create() error number=%d\n", ret);
         return -1;
     }
+
+//      pthread_mutex_lock(&lock); // thread so 2 dung mutex lock de ko cho thread so 1 truy cap vao counter
+
+//     // ready in advance when pthread_cond_signal() is called
+//     // pthread_cond_wait(&cond, &lock);
+// while(1){
+//     pthread_cond_wait(&cond, &lock);
+//     write(fd, thr->name, strlen(thr->name));
+//     write(fd, "\t\t", strlen("\t\t"));
+//     write(fd, thr->birthday, strlen(thr->birthday));
+//     write(fd, "\t\t", strlen("\t\t"));
+//     write(fd, thr->quequan, strlen(thr->quequan));
+//     write(fd, "\n\n", strlen("\n\n"));
+// }
+//     // pthread_cond_signal(&cond);
+
+//     pthread_mutex_unlock(&lock); //  thread so 2 tra lai mutex lock
 
     // used to block for the end of a thread and release
     pthread_join(thread_id1, NULL);
