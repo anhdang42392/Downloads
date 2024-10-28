@@ -27,10 +27,11 @@ static void *handle_th1(void *args) // ham cho thread ID so 1
     printf("hello %s !\n", thr->name);
     printf("thread1 handler, counter: %d\n", ++counter);
     // sleep(5);
-
-
+    pthread_cond_wait(&cond,&lock1);
+    // printf("after thread 2, value of counter: %d\n",counter);
     pthread_mutex_unlock(&lock1); // tien hanh unlock thread so 1 de tra mutex lock  cho thread so 2 co the truy cap duoc vao bien counter
 
+    printf("after thread 2, value of counter: %d\n",counter);
     pthread_exit(NULL); // exit
 
 }
@@ -42,9 +43,15 @@ static void *handle_th2(void *args) // ham cho thread ID so 2
     // while(1){
     printf("thread2 handler, counter: %d\n", ++counter);
 
+
+    // printf("after thread 1, counter = %d\n",counter);
+
+    pthread_cond_signal(&cond);
     // }
     pthread_mutex_unlock(&lock1); //  thread so 2 tra lai mutex lock
 
+
+    printf("after thread 1, counter = %d\n",counter);
     pthread_exit(NULL); // exit
 }
 
@@ -67,7 +74,7 @@ int main(int argc, char const *argv[])
         printf("pthread_create() error number=%d\n", ret);
         return -1;
     }
-    sleep(5);
+    // sleep(5);
     // used to block for the end of a thread and release
     pthread_join(thread_id1,NULL);  //nhan gia tri tra ve khi thread ket thuc tuong tu nhu waitpid
     pthread_join(thread_id2,NULL);

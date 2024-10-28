@@ -34,7 +34,7 @@ void *foo()
 
         printf("Waiting on condition variable cond1\n");
 
-        pthread_cond_wait(&cond1, &lock);
+        // pthread_cond_wait(&cond1, &lock);
     }
 
     else
@@ -44,7 +44,7 @@ void *foo()
 
         printf("Signaling condition variable cond1\n");
 
-        pthread_cond_signal(&cond1);
+        // pthread_cond_signal(&cond1);
     }
 
     // release lock
