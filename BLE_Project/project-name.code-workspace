@@ -1,0 +1,24 @@
+{
+	"folders": [
+		{
+			"path": "../../project-name"
+		},
+		{
+			"name": "BLE_Project",
+			"path": "../../Documents/PlatformIO/Projects/BLE_Project"
+		},
+		{
+			"name": "BLE",
+			"path": "../../Documents/PlatformIO/Projects/BLE"
+		},
+		{
+			"name": "ESP_BLE",
+			"path": "ESP_BLE"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"bledevice.h": "c"
+		}
+	}
+}
