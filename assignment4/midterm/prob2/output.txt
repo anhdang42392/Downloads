@@ -1,0 +1,10 @@
+Thread 2 tăng biến lên 1
+Thread 1 tăng biến lên 2
+Thread 1 tăng biến lên 3
+Thread 2 tăng biến lên 4
+Thread 1 tăng biến lên 5
+Thread 2 tăng biến lên 6
+Thread 1 tăng biến lên 7
+Thread 2 tăng biến lên 8
+Thread 1 tăng biến lên 9
+Thread 2 tăng biến lên 10

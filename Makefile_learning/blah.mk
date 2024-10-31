@@ -1,3 +1,7 @@
+.PHONY: all blah blah.o some_file other_file file1 file2 clean
+
+
+
 files := file1 file2 
 a := one two
 b := 'one two \n'

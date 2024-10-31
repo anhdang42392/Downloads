@@ -78,7 +78,7 @@ static void *handle_th2(void *args) // ham cho thread ID so 2
             pthread_cond_wait(&cond2, &lock);
         }
 
-        fd = open("thongtinsinhvien.txt", O_RDWR | O_CREAT, 0667);
+        fd = open("thongtinsinhvien.txt", O_APPEND, 0667);
         if (-1 == fd)
         {
             printf("open() thongtinsinhvien.txt failed\n");
