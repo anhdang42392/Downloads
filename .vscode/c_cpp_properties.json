@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/home/anhdang/.platformio/packages/framework-arduinoespressif32/cores/esp32",
+                "/home/anhdang/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include"
+            ],
+            "defines": [],
+            "cStandard": "c17",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "linux-gcc-x86"
+        }
+    ],
+    "version": 4
+}

@@ -3,5 +3,6 @@
         "stdio.h": "c",
         "stat.h": "c",
         "unistd.h": "c"
-    }
+    },
+    "C_Cpp.default.compilerPath": "/home/anhdang/.platformio/packages/toolchain-xtensa-esp32/bin/xtensa-esp32-elf-gcc"
 }
