@@ -24,7 +24,7 @@ static void *handle_th1(void *args) // ham cho thread ID so 1
 
     pthread_mutex_lock(&lock1); // tien hanh lock thread so 1 de thread so 2 khong truy  cap dc vao bien counter
     // critical section 
-    printf("hello world %s !\n", thr->name);
+    printf("hello world tuan anh%s !\n", thr->name);
     printf("thread1 handler, counter: %d\n", ++counter);
     // sleep(5);
     pthread_cond_wait(&cond,&lock1);
