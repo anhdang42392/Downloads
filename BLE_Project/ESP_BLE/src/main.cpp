@@ -5,29 +5,24 @@
 #include <BLEUtils.h>
 #include <BLE2902.h>
 
-// put function declarations here:
-// int myFunction(int, int);
-// int result;
 
-// void setup() {
-//   // put your setup code here, to run once:
-//   result = myFunction(2, 3);
-//   Serial.begin(9600);
-// }
 
-// void loop() {
-//   // put your main code here, to run repeatedly:
 
-//   Serial.println(result);
-//   delay(1000);
 
-// }
 
-// // put function definitions here:
-// int myFunction(int x, int y) {
-//   return x + y;
-// }
 
+
+
+
+
+
+
+
+
+
+// TEST SERVER to send data from esp32 to mobile app
+/*
+{
 BLEServer *pServer = NULL;
 BLECharacteristic *pCharacteristic = NULL;
 BLEDescriptor *pDescr;
@@ -130,3 +125,6 @@ void loop()
     oldDeviceConnected = deviceConnected;
   }
 }
+
+}*/
+
