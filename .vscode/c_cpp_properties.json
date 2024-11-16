@@ -5,7 +5,9 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "/home/anhdang/.platformio/packages/framework-arduinoespressif32/cores/esp32",
-                "/home/anhdang/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include"
+                "/home/anhdang/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include",
+                "/usr/include/x86_64-linux-gnu",
+                "/usr/include/x86_64-linux-gnu/c++/13"
             ],
             "defines": [],
             "cStandard": "c17",

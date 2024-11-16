@@ -113,7 +113,7 @@ static void *handle_th3(void *args) // ham cho thread ID so 2
             pthread_cond_wait(&cond2, &lock);
         }
 
-        fd = open("thongtinsinhvien.txt", O_RDONLY);
+        fd = open("thongtinsinhvien.txt", O_APPEND);
         numb_read = read(fd, &buff2, sizeof(buff2) - 1);
         if (numb_read == -1)
         {
